@@ -52,6 +52,7 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation(libs.converter.json)
+    implementation(libs.koin.android)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
