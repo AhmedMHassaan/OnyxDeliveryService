@@ -5,11 +5,12 @@ coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.7"
+lifecycleRuntimeKtx = "2.9.0"
 activityCompose = "1.10.1"
-composeBom = "2025.04.01"
+composeBom = "2025.05.00"
 retrofitVersion = "2.11.0"
 koinAndroid = "4.0.3"
+navigation = "2.9.0"
 
 
 [libraries]
@@ -30,6 +31,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 retrofit = {group = "com.squareup.retrofit2", name="retrofit", version.ref = "retrofitVersion"}
 converter-json = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofitVersion" }
 koin-android = {group = "io.insert-koin", name = "koin-android", version.ref= "koinAndroid"}
+navigation = {group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation"}
 
 
 

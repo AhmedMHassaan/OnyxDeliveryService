@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.converter.json)
     implementation(libs.koin.android)
 
+    implementation(libs.navigation)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
