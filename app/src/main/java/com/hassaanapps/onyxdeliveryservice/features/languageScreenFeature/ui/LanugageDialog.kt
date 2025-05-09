@@ -34,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.hassaanapps.onyxdeliveryservice.R
+import com.hassaanapps.onyxdeliveryservice.ui.theme.PrimaryColor
 
 
 @Composable
@@ -94,7 +95,7 @@ fun LanguageSelectionScreen(
                 modifier =
                 Modifier.fillMaxWidth(0.9f),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF004F62),
+                    containerColor = PrimaryColor,
                     contentColor = Color.White
                 ),
                 onClick = {
