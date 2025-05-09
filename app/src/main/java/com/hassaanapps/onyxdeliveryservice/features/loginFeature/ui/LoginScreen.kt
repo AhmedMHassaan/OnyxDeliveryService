@@ -161,7 +161,7 @@ fun LoginScreen(
     var password by remember { mutableStateOf("") }
     val passwordVisible: MutableState<Boolean> = remember { mutableStateOf(false) }
 
-    val selectedLanguageNo = remember { mutableStateOf("0") }
+    val selectedLanguageNo = remember { mutableStateOf("1") }
     val showLanguageDialog = remember { mutableStateOf(false) }
 
 
@@ -333,10 +333,10 @@ fun onErrorHappened(context: Context, error: String) {
     Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
 }
 
-@Composable
+/*@Composable
 private fun OnLoginSuccess(deliveryName: String) {
     Toast.makeText(LocalContext.current, "Login Success $deliveryName", Toast.LENGTH_SHORT).show()
-}
+}*/
 
 @Composable
 fun LoginTopHeader(onLanguageIconClicked: () -> Unit = {}) {

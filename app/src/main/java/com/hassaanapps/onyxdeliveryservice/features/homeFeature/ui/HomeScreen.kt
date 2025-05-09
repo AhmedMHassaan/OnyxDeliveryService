@@ -5,10 +5,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -21,9 +21,12 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.hassaanapps.onyxdeliveryservice.R
 import com.hassaanapps.onyxdeliveryservice.ui.theme.MontserratFontFamily
 
@@ -43,75 +46,116 @@ fun HomeScreenHeader(
 
 
     val firstName = deliveryNames[0]
-
-    Box(
-        Modifier
+    ConstraintLayout(
+        modifier = Modifier
             .fillMaxWidth()
-            .height(150.dp)
-            .background(color = Color((0xFFD42A0F))),
-        contentAlignment = Alignment.TopStart,
+            .heightIn(min = 150.dp)
+            .background(color = Color((0xFFD42A0F)))
     ) {
-        Column(
+
+        val (deliveryNameConstraint, topSubCircleCorner, deliveryImage) = createRefs()
+
+        DeliveryNameText(
             modifier = Modifier
-                .align(Alignment.BottomStart)
-                .padding(start = 20.dp, bottom = 30.dp)
-        ) {
-            Text(
-                text = firstName,
-                color = Color.White,
-                fontFamily = MontserratFontFamily,
-                fontWeight = FontWeight.Normal,
-                fontSize = 32.sp
-            )
-            Text(
-                text = deliveryName.drop(firstName.length).trim(),
-                color = Color.White,
-                fontFamily = MontserratFontFamily,
-                fontWeight = FontWeight.Bold,
-                fontSize = 32.sp
-            )
-        }
+                .constrainAs(deliveryNameConstraint) {
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                }
+                .wrapContentSize(),
+            firstName = firstName,
+            lastName = deliveryNames.getOrNull(1) ?: ""
+        )
 
-        Box(modifier = Modifier.fillMaxSize(), Alignment.TopEnd) {
 
-            Image(
-                contentScale = ContentScale.FillHeight,
-                painter = painterResource(id = R.drawable.ic_circle_top),
-                contentDescription = "Logo",
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .zIndex(1f),
-                colorFilter = ColorFilter.tint(Color(0xFF004F62)),
-
-                )
-
-            IconButton(modifier = Modifier
-                .zIndex(2f)
-                .padding(top = 51.dp, end = 16.dp)
-                .background(Color.White, RoundedCornerShape(10.dp)),
-                onClick = { }) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_language),
-                    contentDescription = "Language icon",
-                    tint = Color(0xFF004F62),
-                )
-            }
-
-        }
+        LanguageIconWithCornerBackground(
+            modifier = Modifier
+                .constrainAs(topSubCircleCorner) {
+                    top.linkTo(parent.top)
+                    end.linkTo(parent.end)
+                    bottom.linkTo(parent.bottom)
+                }
+                .wrapContentSize()
+        )
 
         Image(
             modifier = Modifier
-                .align(Alignment.Center)
-                .padding(start = 70.dp),
+                .constrainAs(deliveryImage) {
+                    top.linkTo(parent.top)
+                    start.linkTo(deliveryNameConstraint.end)
+                    end.linkTo(topSubCircleCorner.start)
+                    bottom.linkTo(parent.bottom)
+                    horizontalBias = .5f
+                }
+                .padding(start = 70.dp)
+                .wrapContentSize(),
             contentScale = ContentScale.Fit,
             painter = painterResource(R.drawable.deliveryman),
             contentDescription = "Delivery Image",
         )
+    }
+
+}
+
+@Composable
+fun LanguageIconWithCornerBackground(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier,
+        Alignment.TopEnd
+    ) {
+
+        Image(
+            contentScale = ContentScale.FillHeight,
+            painter = painterResource(id = R.drawable.ic_circle_top),
+            contentDescription = "Logo",
+            modifier = Modifier
+                .fillMaxHeight()
+                .zIndex(1f),
+            colorFilter = ColorFilter.tint(Color(0xFF004F62)),
+
+            )
+
+        IconButton(modifier = Modifier
+            .zIndex(2f)
+            .padding(top = 51.dp, end = 16.dp)
+            .background(Color.White, RoundedCornerShape(10.dp)),
+            onClick = { }) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_language),
+                contentDescription = "Language icon",
+                tint = Color(0xFF004F62),
+            )
+        }
 
     }
 }
 
 @Composable
+fun DeliveryNameText(modifier: Modifier, firstName: String, lastName: String) {
+    Column(
+        modifier = modifier
+    ) {
+        Text(
+            text = firstName,
+            color = Color.White,
+            fontFamily = MontserratFontFamily,
+            fontWeight = FontWeight.Normal,
+            fontSize = 32.sp,
+            textAlign = TextAlign.End
+        )
+        Text(
+            text = lastName,
+            color = Color.White,
+            fontFamily = MontserratFontFamily,
+            fontWeight = FontWeight.Bold,
+            fontSize = 32.sp,
+            textAlign = TextAlign.End
+        )
+    }
+}
+
+@Composable
+@Preview(apiLevel = 33, showBackground = true)
 private fun HomeScreenHeaderPreview() {
 
     HomeScreenHeader(
