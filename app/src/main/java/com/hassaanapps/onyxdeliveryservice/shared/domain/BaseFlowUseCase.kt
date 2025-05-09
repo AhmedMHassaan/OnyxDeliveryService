@@ -1,7 +1,7 @@
-package com.hassaanapps.onyxdeliveryservice.shatrd.domain
+package com.hassaanapps.onyxdeliveryservice.shared.domain
 
 
-import com.hassaanapps.onyxdeliveryservice.shatrd.domain.usecase.Resource
+import com.hassaanapps.onyxdeliveryservice.shared.domain.usecase.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onCompletion

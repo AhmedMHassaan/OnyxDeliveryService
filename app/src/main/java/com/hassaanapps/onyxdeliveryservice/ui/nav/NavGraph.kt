@@ -3,13 +3,13 @@ package com.hassaanapps.onyxdeliveryservice.ui.nav
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.hassaanapps.onyxdeliveryservice.features.loginFeature.ui.LoginScreen
 import com.hassaanapps.onyxdeliveryservice.features.loginFeature.ui.LoginViewModel
 import com.hassaanapps.onyxdeliveryservice.features.splashScreenFeature.ui.SplashScreen
+import org.koin.compose.koinInject
 
 @Composable
 fun NavigationStack(navController: NavHostController) {
@@ -42,13 +42,12 @@ fun NavigationStack(navController: NavHostController) {
         }
 
         composable(route = ScreensDestinations.Login.route) {
-            val loginViewModel: LoginViewModel = viewModel()
+            val loginViewModel: LoginViewModel = koinInject()
             LoginScreen(
                 loginViewModel = loginViewModel,
                 onShowMoreClick = { },
-                onLanguageIconClicked = {
-
-                }
+                onLanguageIconClicked = {},
+                navController
             )
         }
 

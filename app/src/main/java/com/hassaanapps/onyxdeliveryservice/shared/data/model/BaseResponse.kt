@@ -1,4 +1,4 @@
-package com.hassaanapps.onyxdeliveryservice.shatrd.data.model
+package com.hassaanapps.onyxdeliveryservice.shared.data.model
 
 
 import com.google.gson.annotations.SerializedName
