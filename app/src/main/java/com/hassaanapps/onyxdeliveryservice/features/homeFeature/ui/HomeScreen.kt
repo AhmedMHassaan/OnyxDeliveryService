@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -46,10 +47,11 @@ fun HomeScreenHeader(
 
 
     val firstName = deliveryNames[0]
+    val lastName = deliveryNames.drop(1).joinToString(separator = " ")
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
-            .heightIn(min = 150.dp)
+            .heightIn(min = 150.dp, max= 170.dp)
             .background(color = Color((0xFFD42A0F)))
     ) {
 
@@ -61,10 +63,11 @@ fun HomeScreenHeader(
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
                     start.linkTo(parent.start)
+                    end.linkTo(deliveryNameConstraint.start)
                 }
                 .wrapContentSize(),
             firstName = firstName,
-            lastName = deliveryNames.getOrNull(1) ?: ""
+            lastName =lastName
         )
 
 
@@ -82,12 +85,11 @@ fun HomeScreenHeader(
             modifier = Modifier
                 .constrainAs(deliveryImage) {
                     top.linkTo(parent.top)
-                    start.linkTo(deliveryNameConstraint.end)
+                    start.linkTo(topSubCircleCorner.start)
                     end.linkTo(topSubCircleCorner.start)
                     bottom.linkTo(parent.bottom)
                     horizontalBias = .5f
                 }
-                .padding(start = 70.dp)
                 .wrapContentSize(),
             contentScale = ContentScale.Fit,
             painter = painterResource(R.drawable.deliveryman),
@@ -136,6 +138,7 @@ fun DeliveryNameText(modifier: Modifier, firstName: String, lastName: String) {
         modifier = modifier
     ) {
         Text(
+            modifier = Modifier.wrapContentSize(),
             text = firstName,
             color = Color.White,
             fontFamily = MontserratFontFamily,
@@ -144,6 +147,7 @@ fun DeliveryNameText(modifier: Modifier, firstName: String, lastName: String) {
             textAlign = TextAlign.End
         )
         Text(
+            modifier = Modifier.wrapContentSize(),
             text = lastName,
             color = Color.White,
             fontFamily = MontserratFontFamily,
@@ -159,6 +163,6 @@ fun DeliveryNameText(modifier: Modifier, firstName: String, lastName: String) {
 private fun HomeScreenHeaderPreview() {
 
     HomeScreenHeader(
-        deliveryName = "Ahmed Othman"
+        deliveryName = "احمد عبدالقوي عبدالله حسان"
     )
 }
