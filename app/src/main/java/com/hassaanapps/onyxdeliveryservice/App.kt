@@ -2,6 +2,7 @@ package com.hassaanapps.onyxdeliveryservice
 
 import android.app.Application
 import com.hassaanapps.onyxdeliveryservice.di.homeModule
+import com.hassaanapps.onyxdeliveryservice.di.localModule
 import com.hassaanapps.onyxdeliveryservice.di.loginModule
 import com.hassaanapps.onyxdeliveryservice.di.retrofitModule
 import org.koin.android.ext.koin.androidContext
@@ -16,7 +17,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(retrofitModule, loginModule, homeModule)
+            modules(retrofitModule, loginModule, homeModule, localModule)
         }
     }
 }

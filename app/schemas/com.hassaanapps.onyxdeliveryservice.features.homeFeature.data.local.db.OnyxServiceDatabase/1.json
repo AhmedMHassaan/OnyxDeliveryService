@@ -1,0 +1,116 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "6fe9c95763896f2d0b1e3c740a5d84a3",
+    "entities": [
+      {
+        "tableName": "bills",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`billNumber` TEXT NOT NULL, `billAmount` REAL, `billDate` TEXT, `billSerial` TEXT, `billTime` TEXT, `billType` TEXT, `customerAddress` TEXT, `customerApartmentNumber` TEXT, `customerBuildNumber` TEXT, `customerFloorNumber` TEXT, `customerName` TEXT, `deliveryAmount` TEXT, `deliveryStatusFlag` TEXT, `latitude` TEXT, `longitude` TEXT, `mobileNumber` TEXT, `regionName` TEXT, `taxAmount` TEXT, PRIMARY KEY(`billNumber`))",
+        "fields": [
+          {
+            "fieldPath": "billNumber",
+            "columnName": "billNumber",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "billAmount",
+            "columnName": "billAmount",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "billDate",
+            "columnName": "billDate",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "billSerial",
+            "columnName": "billSerial",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "billTime",
+            "columnName": "billTime",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "billType",
+            "columnName": "billType",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "customerAddress",
+            "columnName": "customerAddress",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "customerApartmentNumber",
+            "columnName": "customerApartmentNumber",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "customerBuildNumber",
+            "columnName": "customerBuildNumber",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "customerFloorNumber",
+            "columnName": "customerFloorNumber",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "customerName",
+            "columnName": "customerName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "deliveryAmount",
+            "columnName": "deliveryAmount",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "deliveryStatusFlag",
+            "columnName": "deliveryStatusFlag",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "mobileNumber",
+            "columnName": "mobileNumber",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "regionName",
+            "columnName": "regionName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "taxAmount",
+            "columnName": "taxAmount",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "billNumber"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6fe9c95763896f2d0b1e3c740a5d84a3')"
+    ]
+  }
+}

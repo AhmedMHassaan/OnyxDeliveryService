@@ -8,15 +8,15 @@ import com.hassaanapps.onyxdeliveryservice.shared.domain.usecase.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class GetAllRemoteDeliveryBillsUseCase(
+class GetLocalOtherDeliveryBillsUseCase(
     private val repo: HomeRepository
 ) :
-    BaseFlowUseCase<GetAllRemoteDeliveryBillsUseCase.GetBillsRequest, List<DeliveryBill>>() {
+    BaseFlowUseCase<GetLocalOtherDeliveryBillsUseCase.GetBillsRequest, List<DeliveryBill>>() {
 
     override fun execute(request: GetBillsRequest): Flow<Resource<List<DeliveryBill>>> =
         flow {
             val result = repo.getRemoteDeliveryBills(
-                selectType = request.selectType,
+                selectType = BillsItemSelectTypes.OTHER,
                 deliveryNo = request.deliveryNo,
                 languageNo = request.languageNo,
                 billSerial = request.billSerial,
@@ -27,7 +27,6 @@ class GetAllRemoteDeliveryBillsUseCase(
         }
 
     data class GetBillsRequest(
-        val selectType: BillsItemSelectTypes,
         val deliveryNo: String?,
         val languageNo: String?,
         val billSerial: String?,

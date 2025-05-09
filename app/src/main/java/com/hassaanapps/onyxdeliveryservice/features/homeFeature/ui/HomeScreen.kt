@@ -1,5 +1,6 @@
 package com.hassaanapps.onyxdeliveryservice.features.homeFeature.ui
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -28,6 +29,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,14 +51,15 @@ import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hassaanapps.onyxdeliveryservice.R
+import com.hassaanapps.onyxdeliveryservice.features.homeFeature.domain.model.BillsItemSelectTypes
 import com.hassaanapps.onyxdeliveryservice.features.homeFeature.domain.model.CustomerAddress
 import com.hassaanapps.onyxdeliveryservice.features.homeFeature.domain.model.DeliveryBill
 import com.hassaanapps.onyxdeliveryservice.features.homeFeature.domain.model.DeliveryBillStatus
 import com.hassaanapps.onyxdeliveryservice.features.languageScreenFeature.ui.LanguageSelectionScreen
-import com.hassaanapps.onyxdeliveryservice.shared.ui.theme.StateDeliveredColor
 import com.hassaanapps.onyxdeliveryservice.shared.ui.theme.MontserratFontFamily
 import com.hassaanapps.onyxdeliveryservice.shared.ui.theme.PrimaryColor
 import com.hassaanapps.onyxdeliveryservice.shared.ui.theme.ShadowColor
+import com.hassaanapps.onyxdeliveryservice.shared.ui.theme.StateDeliveredColor
 import com.hassaanapps.onyxdeliveryservice.shared.ui.theme.StateNewColor
 import com.hassaanapps.onyxdeliveryservice.shared.ui.theme.StateReturnedColor
 import com.hassaanapps.onyxdeliveryservice.shared.ui.theme.TagStatusTextColor
@@ -66,8 +69,17 @@ import java.util.Locale
 fun HomeScreen(
     modifier: Modifier = Modifier,
     homeViewModel: HomeViewModel,
-    deliveryName: String
+    deliveryName: String,
+    userId: String,
 ) {
+
+    var selectedBillType: BillsItemSelectTypes by
+    remember { mutableStateOf(BillsItemSelectTypes.NEW) }
+
+    LaunchedEffect(key1 = selectedBillType) {
+        homeViewModel.getLocalBills(selectedBillType)
+        Log.d("APP_TAG", " HomeScreen - HomeScreen: launched")
+    }
 
     val billsItems = homeViewModel.billItemsStateFlow.collectAsStateWithLifecycle().value
     val isLoading = homeViewModel.loadingState.collectAsStateWithLifecycle().value
@@ -77,7 +89,11 @@ fun HomeScreen(
         HomeScreenHeader(deliveryName)
 
         if (isLoading) {
-            CircularProgressIndicator()
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .size(100.dp, 100.dp)
+                    .align(Alignment.CenterHorizontally)
+            )
         } else {
             NewOthersTappedLayout(
                 modifier = Modifier
@@ -91,9 +107,9 @@ fun HomeScreen(
                     ),
 
                 onItemSelected = {
-
+                    selectedBillType = it
                 },
-                defaultSelectedTab = TabItemSelect.NEW
+                defaultSelectedTab = selectedBillType
             )
 
 
@@ -478,11 +494,11 @@ fun DeliveryNameText(modifier: Modifier, firstName: String, lastName: String) {
 @Composable
 fun NewOthersTappedLayout(
     modifier: Modifier,
-    onItemSelected: (TabItemSelect) -> Unit,
-    defaultSelectedTab: TabItemSelect
+    onItemSelected: (BillsItemSelectTypes) -> Unit,
+    defaultSelectedTab: BillsItemSelectTypes
 ) {
 
-    var isNewSelected: Boolean by remember { mutableStateOf(defaultSelectedTab == TabItemSelect.NEW) }
+    var isNewSelected: Boolean by remember { mutableStateOf(defaultSelectedTab == BillsItemSelectTypes.NEW) }
 
     Column(
         modifier = modifier
@@ -503,7 +519,7 @@ fun NewOthersTappedLayout(
                 text = "New",
                 isSelected = isNewSelected,
                 onTabClicked = {
-                    onItemSelected(TabItemSelect.NEW)
+                    onItemSelected(BillsItemSelectTypes.NEW)
                     isNewSelected = true
                 }
             )
@@ -514,7 +530,7 @@ fun NewOthersTappedLayout(
                 isSelected = !isNewSelected
             ) {
                 isNewSelected = false
-                onItemSelected(TabItemSelect.OTHER)
+                onItemSelected(BillsItemSelectTypes.OTHER)
             }
 
         }
@@ -565,7 +581,7 @@ private fun TabbedLayoutPReview() {
             .fillMaxWidth()
             .padding(10.dp),
         onItemSelected = {},
-        defaultSelectedTab = TabItemSelect.NEW
+        defaultSelectedTab = BillsItemSelectTypes.NEW
     )
 }
 

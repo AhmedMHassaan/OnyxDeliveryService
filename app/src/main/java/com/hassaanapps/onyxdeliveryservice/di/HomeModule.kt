@@ -4,6 +4,8 @@ import com.hassaanapps.onyxdeliveryservice.features.homeFeature.data.remote.api.
 import com.hassaanapps.onyxdeliveryservice.features.homeFeature.data.repo.HomeRepositoryImpl
 import com.hassaanapps.onyxdeliveryservice.features.homeFeature.domain.repo.HomeRepository
 import com.hassaanapps.onyxdeliveryservice.features.homeFeature.domain.usecase.GetAllRemoteDeliveryBillsUseCase
+import com.hassaanapps.onyxdeliveryservice.features.homeFeature.domain.usecase.GetLocalNewsDeliveryBillsUseCase
+import com.hassaanapps.onyxdeliveryservice.features.homeFeature.domain.usecase.GetLocalOtherDeliveryBillsUseCase
 import com.hassaanapps.onyxdeliveryservice.features.homeFeature.ui.HomeViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -15,10 +17,12 @@ val homeModule = module {
         (get() as Retrofit).create(HomeApi::class.java)
     }
 
-    single<HomeRepository> { HomeRepositoryImpl(get()) }
+    single<HomeRepository> { HomeRepositoryImpl(get(), get()) }
 
     single<GetAllRemoteDeliveryBillsUseCase> { GetAllRemoteDeliveryBillsUseCase(repo = get()) }
+    single<GetLocalNewsDeliveryBillsUseCase> { GetLocalNewsDeliveryBillsUseCase(repo = get()) }
+    single<GetLocalOtherDeliveryBillsUseCase> { GetLocalOtherDeliveryBillsUseCase(repo = get()) }
 
-    viewModel { HomeViewModel(getAllRemoteDeliveryBillsUseCase = get()) }
+    viewModel { HomeViewModel(get(), get(), get()) }
 
 }
