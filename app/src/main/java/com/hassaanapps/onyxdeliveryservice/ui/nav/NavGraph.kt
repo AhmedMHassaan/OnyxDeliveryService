@@ -15,8 +15,8 @@ import org.koin.compose.koinInject
 fun NavigationStack(navController: NavHostController) {
     NavHost(
         navController = navController,
-//        startDestination = ScreensDestinations.SplashScreen.route
-        startDestination = ScreensDestinations.Login.route
+        startDestination = ScreensDestinations.SplashScreen.route
+//        startDestination = ScreensDestinations.Login.route
     ) {
 
 
@@ -32,7 +32,7 @@ fun NavigationStack(navController: NavHostController) {
 
 
         composable(route = ScreensDestinations.SplashScreen.route) {
-            SplashScreen(2000L) {
+            SplashScreen(1000L) {
                 navController.navigate(ScreensDestinations.Login.route) {
                     popUpTo(ScreensDestinations.SplashScreen.route) {
                         inclusive = true
