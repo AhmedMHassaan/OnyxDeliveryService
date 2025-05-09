@@ -1,4 +1,4 @@
-package com.hassaanapps.onyxdeliveryservice.ui.theme
+package com.hassaanapps.onyxdeliveryservice.shared.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

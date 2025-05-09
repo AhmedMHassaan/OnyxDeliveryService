@@ -6,8 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.hassaanapps.onyxdeliveryservice.ui.nav.NavigationStack
-import com.hassaanapps.onyxdeliveryservice.ui.theme.OnyxDeliveryServiceTheme
+import com.hassaanapps.onyxdeliveryservice.shared.ui.nav.NavigationStack
+import com.hassaanapps.onyxdeliveryservice.shared.ui.theme.OnyxDeliveryServiceTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

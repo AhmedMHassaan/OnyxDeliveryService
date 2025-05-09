@@ -1,4 +1,4 @@
-package com.hassaanapps.onyxdeliveryservice.ui.nav
+package com.hassaanapps.onyxdeliveryservice.shared.ui.nav
 
 
 sealed class ScreensDestinations(val route: String) {

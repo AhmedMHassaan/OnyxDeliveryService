@@ -59,8 +59,8 @@ import androidx.navigation.NavHostController
 import com.hassaanapps.onyxdeliveryservice.R
 import com.hassaanapps.onyxdeliveryservice.features.languageScreenFeature.ui.LanguageSelectionScreen
 import com.hassaanapps.onyxdeliveryservice.features.splashScreenFeature.ui.OnyxServiceLogo
-import com.hassaanapps.onyxdeliveryservice.ui.nav.ScreensDestinations
-import com.hassaanapps.onyxdeliveryservice.ui.theme.MontserratFontFamily
+import com.hassaanapps.onyxdeliveryservice.shared.ui.nav.ScreensDestinations
+import com.hassaanapps.onyxdeliveryservice.shared.ui.theme.MontserratFontFamily
 
 
 @Composable
