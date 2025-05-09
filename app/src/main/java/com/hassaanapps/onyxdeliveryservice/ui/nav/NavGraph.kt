@@ -1,11 +1,10 @@
 package com.hassaanapps.onyxdeliveryservice.ui.nav
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.hassaanapps.onyxdeliveryservice.features.homeFeature.ui.HomeScreen
 import com.hassaanapps.onyxdeliveryservice.features.loginFeature.ui.LoginScreen
 import com.hassaanapps.onyxdeliveryservice.features.loginFeature.ui.LoginViewModel
 import com.hassaanapps.onyxdeliveryservice.features.splashScreenFeature.ui.SplashScreen
@@ -22,12 +21,9 @@ fun NavigationStack(navController: NavHostController) {
 
         composable(
             route = ScreensDestinations.Home.route,
-        ) {
-            Column {
-                Text(
-                    text = "Hello Home!",
-                )
-            }
+        ) { backStackEntry->
+            val deliveryName = backStackEntry.arguments?.getString("deliveryName") ?: ""
+            HomeScreen(deliveryName = deliveryName)
         }
 
 

@@ -32,6 +32,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -53,6 +54,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.hassaanapps.onyxdeliveryservice.R
 import com.hassaanapps.onyxdeliveryservice.features.languageScreenFeature.ui.LanguageSelectionScreen
@@ -165,6 +167,21 @@ fun LoginScreen(
 
     val context: Context = LocalContext.current
 
+    val successState = loginViewModel.successLoginState.collectAsStateWithLifecycle().value
+    LaunchedEffect (successState){
+        successState?.let {
+//            OnLoginSuccess(it)
+        navHostController.navigate(
+            ScreensDestinations.Home.withDeliveryName(
+                it
+            )
+        ) {
+            popUpTo(ScreensDestinations.Login.route) {
+                inclusive = true
+            }
+        }
+    }
+    }
 
     with(loginViewModel) {
 
@@ -175,14 +192,8 @@ fun LoginScreen(
                     .height(100.dp)
             )
         }
-        successLoginState.value?.let {
-            OnLoginSuccess(it)
-            navHostController.navigate(ScreensDestinations.Home.route) {
-                popUpTo(ScreensDestinations.Login.route) {
-                    inclusive = true
-                }
-            }
-        }
+
+
 
         errorState.collectAsState(initial = null).value?.let {
             onErrorHappened(context, it)
@@ -315,8 +326,6 @@ fun LoginScreen(
         }
     }
 }
-
-
 
 
 fun onErrorHappened(context: Context, error: String) {
