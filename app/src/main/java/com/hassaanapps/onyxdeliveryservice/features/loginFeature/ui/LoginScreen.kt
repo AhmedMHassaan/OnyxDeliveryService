@@ -1,5 +1,6 @@
 package com.hassaanapps.onyxdeliveryservice.features.loginFeature.ui
 
+import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -32,6 +33,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -142,18 +144,6 @@ fun PasswordTextField(
         passwordVisible = passwordVisible,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
     )
-    /* OutlinedTextField(
-         value = value.value,
-         onValueChange = { onValueChange(it) },
-         placeholder = { Text("Password") },
-         visualTransformation = PasswordVisualTransformation(),
-         colors = OutlinedTextFieldDefaults.colors(
-             focusedBorderColor = Color.Transparent,
-             unfocusedBorderColor = Color.Transparent,
-             focusedContainerColor = Color(0xFFF5F8F9),
-             unfocusedContainerColor = Color(0xFFF5F8F9)
-         )
-     )*/
 }
 
 
@@ -168,6 +158,9 @@ fun LoginScreen(
     var userId by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     val passwordVisible: MutableState<Boolean> = remember { mutableStateOf(false) }
+
+    val context: Context = LocalContext.current
+
 
     with(loginViewModel) {
 
@@ -187,8 +180,8 @@ fun LoginScreen(
             }
         }
 
-        errorState.value?.let {
-            OnErrorHappened(it)
+        errorState.collectAsState(initial = null).value?.let {
+            onErrorHappened(context, it)
         }
 
     }
@@ -306,10 +299,10 @@ fun LoginScreen(
     }
 }
 
-@Composable
-fun OnErrorHappened(error: String) {
+
+fun onErrorHappened(context: Context, error: String) {
     Log.d("APP_TAG", " LoginScreen - OnErrorHappened: error is $error")
-    Toast.makeText(LocalContext.current, error, Toast.LENGTH_SHORT).show()
+    Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
 }
 
 @Composable

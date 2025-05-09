@@ -4,6 +4,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import com.hassaanapps.onyxdeliveryservice.features.loginFeature.domain.usecases.CheckLoginUseCase
 import com.hassaanapps.onyxdeliveryservice.shared.ui.BaseViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 class LoginViewModel(
     private val checkLoginUseCase: CheckLoginUseCase
@@ -12,8 +14,8 @@ class LoginViewModel(
     private val _successLoginState = mutableStateOf<String?>(null)
     val successLoginState: State<String?> = _successLoginState
 
-    private val _error = mutableStateOf<String?>(null)
-    val errorState: State<String?> = _error
+    private val _error = MutableStateFlow<String?>(null)
+    val errorState: StateFlow<String?> = _error
 
     private val _loading = mutableStateOf<Boolean>(false)
     val loadingState: State<Boolean> = _loading
