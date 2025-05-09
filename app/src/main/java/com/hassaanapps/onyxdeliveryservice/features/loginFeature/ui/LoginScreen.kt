@@ -55,6 +55,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavHostController
 import com.hassaanapps.onyxdeliveryservice.R
+import com.hassaanapps.onyxdeliveryservice.features.languageScreenFeature.ui.LanguageSelectionScreen
 import com.hassaanapps.onyxdeliveryservice.features.splashScreenFeature.ui.OnyxServiceLogo
 import com.hassaanapps.onyxdeliveryservice.ui.nav.ScreensDestinations
 import com.hassaanapps.onyxdeliveryservice.ui.theme.MontserratFontFamily
@@ -150,14 +151,17 @@ fun PasswordTextField(
 @Composable
 fun LoginScreen(
     loginViewModel: LoginViewModel,
-    onShowMoreClick: () -> Unit = {},
-    onLanguageIconClicked: () -> Unit = {},
+    onShowMoreClick: () -> Unit,
     navHostController: NavHostController
 
 ) {
     var userId by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     val passwordVisible: MutableState<Boolean> = remember { mutableStateOf(false) }
+
+    val selectedLanguageNo = remember { mutableStateOf("0") }
+    val showLanguageDialog = remember { mutableStateOf(false) }
+
 
     val context: Context = LocalContext.current
 
@@ -187,6 +191,16 @@ fun LoginScreen(
     }
 
 
+    if (showLanguageDialog.value) {
+        LanguageSelectionScreen(
+            selectedLanguageNo.value,
+            onDismiss = {
+                showLanguageDialog.value = false
+            },
+            onLanguageSelected = {
+                selectedLanguageNo.value = it
+            })
+    }
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -198,7 +212,10 @@ fun LoginScreen(
                 .fillMaxSize()
         ) {
 
-            LoginTopHeader(onLanguageIconClicked)
+            LoginTopHeader {
+                showLanguageDialog.value = true
+
+            }
 
 
             Spacer(modifier = Modifier.fillMaxHeight(.3f))
@@ -266,7 +283,7 @@ fun LoginScreen(
                 onClick = {
                     keyboardController?.hide()
 
-                    loginViewModel.login(userId, password, "1")
+                    loginViewModel.login(userId, password, selectedLanguageNo.value)
                 },
                 modifier = Modifier
                     .fillMaxWidth(.9f)
@@ -298,6 +315,8 @@ fun LoginScreen(
         }
     }
 }
+
+
 
 
 fun onErrorHappened(context: Context, error: String) {

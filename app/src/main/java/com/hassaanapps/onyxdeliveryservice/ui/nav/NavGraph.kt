@@ -46,7 +46,6 @@ fun NavigationStack(navController: NavHostController) {
             LoginScreen(
                 loginViewModel = loginViewModel,
                 onShowMoreClick = { },
-                onLanguageIconClicked = {},
                 navController
             )
         }
