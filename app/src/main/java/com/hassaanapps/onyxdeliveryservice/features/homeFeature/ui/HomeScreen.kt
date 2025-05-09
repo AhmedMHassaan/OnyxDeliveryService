@@ -60,6 +60,7 @@ import com.hassaanapps.onyxdeliveryservice.shared.ui.theme.ShadowColor
 import com.hassaanapps.onyxdeliveryservice.shared.ui.theme.StateNewColor
 import com.hassaanapps.onyxdeliveryservice.shared.ui.theme.StateReturnedColor
 import com.hassaanapps.onyxdeliveryservice.shared.ui.theme.TagStatusTextColor
+import java.util.Locale
 
 @Composable
 fun HomeScreen(
@@ -196,7 +197,13 @@ fun BillItem(bill: DeliveryBill) {
                             .weight(1f)
                             .align(Alignment.CenterVertically),
                         keyTitle = "Total price",
-                        value = "${bill.billAmount ?: ""} LE",
+                        value = "${
+                            String.format(
+                                Locale.ENGLISH,
+                                "%.2f",
+                                bill.billAmount
+                            )
+                        } LE",
                         valueTextColor = valueTextColor,
                     )
                     Divider()
@@ -301,7 +308,7 @@ fun BillItemSection(
 private fun BillItemPreview() {
     BillItem(
         DeliveryBill(
-            billAmount = "5",
+            billAmount = 5.0f,
             billDate = "2011",
             billNumber = "123456",
             billSerial = "56454asdasd45654",

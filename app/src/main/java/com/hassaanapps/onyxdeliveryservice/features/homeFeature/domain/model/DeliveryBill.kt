@@ -1,7 +1,7 @@
 package com.hassaanapps.onyxdeliveryservice.features.homeFeature.domain.model
 
 data class DeliveryBill(
-    val billAmount: String?,
+    val billAmount: Float?,
     val billDate: String?,
     val billNumber: String?,
     val billSerial: String?,

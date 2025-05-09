@@ -6,7 +6,7 @@ import com.hassaanapps.onyxdeliveryservice.features.homeFeature.domain.model.Del
 import com.hassaanapps.onyxdeliveryservice.features.homeFeature.domain.model.DeliveryBillStatus
 
 fun DeliveryBillsResponseItem.mapToDomain(): DeliveryBill = DeliveryBill(
-    billAmount = this.billAmount,
+    billAmount = this.billAmount?.toFloatOrNull(),
     billDate = this.billDate,
     billNumber = this.billNumber,
     billSerial = this.billSerial,
