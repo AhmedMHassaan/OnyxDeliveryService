@@ -19,6 +19,14 @@ OnyxDeliveryService is a delivery management application that provides functiona
 - **Retrofit**: Networking library for RESTful APIs.
 - **Koin**: Dependency injection framework.
 
+
+## System archeticture
+this app  is based on separate by feature , but is still in packages to reduce implementation time
+but it is ready to be multi-module
+
+every feature has its [data, domain and ui) package
+
+there is a shared package(module) to be shared with another modules
 ## Setup Instructions
 
 ### Prerequisites
@@ -28,14 +36,6 @@ Ensure you have the following installed on your system:
 - [Android Studio](https://developer.android.com/studio)
 - [Java 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 
-
-### System archeticture
-this app  is based on separate by feature , but is still in packages to reduce implementation time
-but it is ready to be multi-module
-
-every feature has its [data, domain and ui) package
-
-there is a shared package(module) to be shared with another modules
 ### Clone the repository
 
 ```bash
