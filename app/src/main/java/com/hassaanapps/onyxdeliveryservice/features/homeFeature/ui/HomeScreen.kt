@@ -125,7 +125,7 @@ fun BuildNewItems(billsItems: List<DeliveryBill>) {
 
 @Composable
 fun BillsItemsListView(billsItems: List<DeliveryBill>) {
-    LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
+    LazyColumn(modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)) {
         itemsIndexed(items = billsItems) { index, item ->
 
             BillItem(item)
@@ -148,8 +148,8 @@ fun BillItem(bill: DeliveryBill) {
             .copy(containerColor = Color.White, contentColor = Color.White),
     ) {
         val valueTextColor = when (bill.deliveryStatusFlag) {
-            DeliveryBillStatus.New -> StateNewColor
-            DeliveryBillStatus.Delivered -> StateDeliveredColor
+            DeliveryBillStatus.NEW -> StateNewColor
+            DeliveryBillStatus.DELIVERED -> StateDeliveredColor
             DeliveryBillStatus.RETURNED -> StateReturnedColor
             else -> MaterialTheme.colorScheme.onSurface
         }
@@ -186,7 +186,7 @@ fun BillItem(bill: DeliveryBill) {
                             .weight(1f)
                             .align(Alignment.CenterVertically),
                         keyTitle = "Status",
-                        value = bill.deliveryStatusFlag?.name ?: "",
+                        value = bill.deliveryStatusFlag.toString() ?: "",
                         valueTextColor = valueTextColor,
                     )
 
@@ -322,7 +322,7 @@ private fun BillItemPreview() {
             ),
             customerName = "Ahmed",
             deliveryAmount = "5",
-            deliveryStatusFlag = DeliveryBillStatus.Delivered,
+            deliveryStatusFlag = DeliveryBillStatus.DELIVERED,
             latitude = "55.55",
             longitude = "55.55",
             mobileNumber = "01146906776",

@@ -30,8 +30,8 @@ fun DeliveryBillsResponseItem.mapToDomain(): DeliveryBill = DeliveryBill(
 
 fun mapToDeliveryState(status: String?): DeliveryBillStatus? {
     return when (status) {
-        "0" -> DeliveryBillStatus.New
-        "1" -> DeliveryBillStatus.Delivered
+        "0" -> DeliveryBillStatus.NEW
+        "1" -> DeliveryBillStatus.DELIVERED
         "2" -> DeliveryBillStatus.UNDER_DELIVERING
         "3" -> DeliveryBillStatus.RETURNED
         else -> null

@@ -19,10 +19,10 @@ data class DeliveryBill(
 )
 
 enum class DeliveryBillStatus {
-    New {
+    NEW {
         override fun toString(): String = "New"
     },
-    Delivered {
+    DELIVERED {
         override fun toString(): String = "Delivered"
 
     },
