@@ -22,5 +22,7 @@ interface HomeRepository {
     ): List<DeliveryBill>
 
 
+    suspend fun clearCachedBills()
+
 
 }

@@ -54,7 +54,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.hassaanapps.onyxdeliveryservice.R
 import com.hassaanapps.onyxdeliveryservice.features.languageScreenFeature.ui.LanguageSelectionScreen
@@ -167,21 +166,29 @@ fun LoginScreen(
 
     val context: Context = LocalContext.current
 
-    val successState = loginViewModel.successLoginState.collectAsStateWithLifecycle().value
-    LaunchedEffect (successState){
+    val successState = loginViewModel.successLoginState.collectAsState().value
+//    LaunchedEffect(successState) {
+    Log.d("APP_TAG", " LoginScreen - LoginScreen: success $successState")
+    LaunchedEffect(successState) {
         successState?.let {
-//            OnLoginSuccess(it)
-        navHostController.navigate(
-            ScreensDestinations.Home.withDeliveryName(
-                it
-            )
-        ) {
-            popUpTo(ScreensDestinations.Login.route) {
-                inclusive = true
+
+            navHostController.navigate(
+                ScreensDestinations.Home.withDeliveryName(
+                    deliveryName = it,
+                    userId = userId
+                ) // i pass data by functions because there is no time to implement sharedPrefs
+            ) {
+                popUpTo(ScreensDestinations.Login.route) {
+                    inclusive = true
+                }
             }
+
+            loginViewModel.resetStates()
+
+//        }
         }
     }
-    }
+
 
     with(loginViewModel) {
 

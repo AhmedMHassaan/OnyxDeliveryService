@@ -1,6 +1,7 @@
 package com.hassaanapps.onyxdeliveryservice.features.homeFeature.ui
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -41,6 +42,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -50,12 +52,14 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
 import com.hassaanapps.onyxdeliveryservice.R
 import com.hassaanapps.onyxdeliveryservice.features.homeFeature.domain.model.BillsItemSelectTypes
 import com.hassaanapps.onyxdeliveryservice.features.homeFeature.domain.model.CustomerAddress
 import com.hassaanapps.onyxdeliveryservice.features.homeFeature.domain.model.DeliveryBill
 import com.hassaanapps.onyxdeliveryservice.features.homeFeature.domain.model.DeliveryBillStatus
 import com.hassaanapps.onyxdeliveryservice.features.languageScreenFeature.ui.LanguageSelectionScreen
+import com.hassaanapps.onyxdeliveryservice.shared.ui.nav.ScreensDestinations
 import com.hassaanapps.onyxdeliveryservice.shared.ui.theme.MontserratFontFamily
 import com.hassaanapps.onyxdeliveryservice.shared.ui.theme.PrimaryColor
 import com.hassaanapps.onyxdeliveryservice.shared.ui.theme.ShadowColor
@@ -68,15 +72,40 @@ import java.util.Locale
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
+    navController: NavHostController,
     homeViewModel: HomeViewModel,
     deliveryName: String,
+    userId: String
 ) {
+
+
+    if (userId.isEmpty()) {
+        Log.d("APP_TAG", " HomeScreen - HomeScreen: user id is empty")
+        navController.navigate(ScreensDestinations.Login.route) {
+            popUpTo(0)
+        }
+        return
+    }
+
+    val context = LocalContext.current
+
+    LaunchedEffect(homeViewModel.errorStates.value) {
+        homeViewModel.errorStates.value?.let {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        }
+    }
 
     var selectedBillType: BillsItemSelectTypes by
     remember { mutableStateOf(BillsItemSelectTypes.NEW) }
 
+    val selectedLanguage = remember { mutableStateOf("1") }
+
     LaunchedEffect(key1 = selectedBillType) {
-        homeViewModel.getLocalBills(selectedBillType)
+        homeViewModel.getLocalBills(
+            selectType = selectedBillType,
+            deliveryNo = userId,
+            langNo = selectedLanguage.value
+        )
         Log.d("APP_TAG", " HomeScreen - HomeScreen: launched")
     }
 
@@ -85,7 +114,10 @@ fun HomeScreen(
 
 
     Column(modifier = modifier) {
-        HomeScreenHeader(deliveryName)
+        HomeScreenHeader(
+            deliveryName,
+            { newLang -> selectedLanguage.value = newLang }
+        )
 
         if (isLoading) {
             CircularProgressIndicator(
@@ -350,6 +382,7 @@ private fun BillItemPreview() {
 @Composable
 fun HomeScreenHeader(
     deliveryName: String,
+    onLanguageSelected: (String) -> Unit
 ) {
     val deliveryNames = deliveryName.split(" ")
 
@@ -368,6 +401,7 @@ fun HomeScreenHeader(
             },
             onLanguageSelected = {
                 selectedLanguageNo.value = it
+                onLanguageSelected(it)
             })
     }
 
@@ -568,7 +602,8 @@ fun TabItem(
 private fun HomeScreenHeaderPreview() {
 
     HomeScreenHeader(
-        deliveryName = "احمد عبدالقوي عبدالله حسان"
+        deliveryName = "احمد عبدالقوي عبدالله حسان",
+        { }
     )
 }
 

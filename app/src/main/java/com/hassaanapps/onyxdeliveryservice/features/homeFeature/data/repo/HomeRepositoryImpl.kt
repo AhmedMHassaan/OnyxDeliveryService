@@ -67,4 +67,8 @@ class HomeRepositoryImpl(
         return localBolls.map { it.mapToDomain() }
 
     }
+
+    override suspend fun clearCachedBills() {
+        return localBollsDao.clearAllBills()
+    }
 }

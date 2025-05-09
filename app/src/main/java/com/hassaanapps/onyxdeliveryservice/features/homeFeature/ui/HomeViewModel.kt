@@ -59,11 +59,11 @@ class HomeViewModel(
     }
 
     fun getLocalBills(
-        selectTypes: BillsItemSelectTypes,
-        deliveryNo: String? = "1010",
-        langNo: String? = "1"
+        selectType: BillsItemSelectTypes,
+        deliveryNo: String? ,
+        langNo: String?
     ) {
-        val userCase = when (selectTypes) {
+        val userCase = when (selectType) {
             BillsItemSelectTypes.NEW -> getLocalNewsDeliveryBillsUseCase.invoke(
                 GetLocalNewsDeliveryBillsUseCase.GetBillsRequest(
                     deliveryNo = deliveryNo,
@@ -85,7 +85,7 @@ class HomeViewModel(
         userCase.dataHandling(
             success = {
                 if (it.isEmpty()) {
-                    fetchRemoteBills(selectTypes, deliveryNo, langNo)
+                    fetchRemoteBills(selectType, deliveryNo, langNo)
                 } else {
                     _billItems.tryEmit(it)
                 }

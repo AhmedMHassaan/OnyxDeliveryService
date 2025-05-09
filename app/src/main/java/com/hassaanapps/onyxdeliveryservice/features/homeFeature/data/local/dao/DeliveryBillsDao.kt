@@ -19,4 +19,6 @@ interface DeliveryBillsDao {
     @Query("SELECT * FROM bills WHERE deliveryStatusFlag != '0'")
     suspend fun getOthersBills(): List<DeliveryBillEntity>
 
+    @Query("DELETE FROM bills")
+    suspend fun clearAllBills()
 }

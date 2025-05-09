@@ -1,7 +1,6 @@
 package com.hassaanapps.onyxdeliveryservice.shared.ui
 
 import android.os.CountDownTimer
-import android.util.Log
 
 object SessionTimeoutManager {
     const val MAX_TIMEOUT = 2 * 60 * 1000L  // equal 2 min
@@ -18,10 +17,10 @@ object SessionTimeoutManager {
         timer = object : CountDownTimer(timeout, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 currentTime = millisUntilFinished
-                Log.d(
+                /*Log.d(
                     "APP_TAG",
                     " SessionTimeoutManager - onTick: tike unitle $currentTime"
-                )
+                )*/
             }
 
             override fun onFinish() {

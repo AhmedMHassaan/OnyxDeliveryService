@@ -25,9 +25,15 @@ fun NavigationStack(navController: NavHostController) {
         ) { backStackEntry ->
 
             val deliveryName = backStackEntry.arguments?.getString("deliveryName") ?: ""
+            val userId: String = backStackEntry.arguments?.getString("userId") ?: ""
             val homeViewModel: HomeViewModel = koinInject()
 
-            HomeScreen(homeViewModel = homeViewModel, deliveryName = deliveryName)
+            HomeScreen(
+                homeViewModel = homeViewModel,
+                navController = navController,
+                deliveryName = deliveryName,
+                userId = userId
+            )
         }
 
 
