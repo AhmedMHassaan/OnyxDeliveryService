@@ -56,10 +56,12 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation(libs.converter.json)
+    implementation(libs.loggingInterceptor)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
 
     implementation(libs.androidx.material.icons.extended)
+    implementation(libs.constraintlayout)
 
     implementation(libs.navigation)
     testImplementation(libs.junit)
