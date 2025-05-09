@@ -12,7 +12,7 @@ retrofitVersion = "2.11.0"
 koinAndroid = "4.0.3"
 koinAndroidCompose = "3.5.0"
 navigation = "2.9.0"
-
+constraintLayout= "1.1.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -23,7 +23,6 @@ androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecyc
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-material-icons-extended = {  group = "androidx.compose.material", name = "material-icons-extended"}
-
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
@@ -33,10 +32,11 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 retrofit = {group = "com.squareup.retrofit2", name="retrofit", version.ref = "retrofitVersion"}
 converter-json = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofitVersion" }
+loggingInterceptor = {group = "com.squareup.okhttp3", name = "logging-interceptor", version = "4.12.0" }
 koin-android = {group = "io.insert-koin", name = "koin-android", version.ref= "koinAndroid"}
 koin-androidx-compose = {group = "io.insert-koin", name = "koin-androidx-compose", version.ref= "koinAndroidCompose"}
 navigation = {group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation"}
-
+constraintlayout = {group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintLayout"}
 
 
 [plugins]
