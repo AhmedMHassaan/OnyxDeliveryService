@@ -37,6 +37,10 @@ android {
     buildFeatures {
         compose = true
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.10.1"
+    }
 }
 
 dependencies {
@@ -53,6 +57,9 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.json)
     implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+
+    implementation(libs.androidx.material.icons.extended)
 
     implementation(libs.navigation)
     testImplementation(libs.junit)

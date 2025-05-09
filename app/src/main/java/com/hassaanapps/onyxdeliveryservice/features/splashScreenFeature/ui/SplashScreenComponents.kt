@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -22,14 +21,13 @@ private fun SplashScreenPreview(modifier: Modifier = Modifier) {
 
 
 @Composable
-fun OnyxServiceLogo(modifier: Modifier) {
+@Preview(showBackground = true)
+fun OnyxServiceLogo(modifier: Modifier = Modifier) {
 
     Image(
         painter = painterResource(id = R.drawable.ic_onyx_delivery_logo),
         contentDescription = "Onyx Logo",
-        modifier = modifier
-            .width(200.dp)
-            .height(100.dp),
+        modifier = modifier,
         contentScale = ContentScale.Fit
     )
 }
