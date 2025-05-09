@@ -70,7 +70,6 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     homeViewModel: HomeViewModel,
     deliveryName: String,
-    userId: String,
 ) {
 
     var selectedBillType: BillsItemSelectTypes by
@@ -202,7 +201,7 @@ fun BillItem(bill: DeliveryBill) {
                             .weight(1f)
                             .align(Alignment.CenterVertically),
                         keyTitle = "Status",
-                        value = bill.deliveryStatusFlag.toString() ?: "",
+                        value = bill.deliveryStatusFlag.toString(),
                         valueTextColor = valueTextColor,
                     )
 
