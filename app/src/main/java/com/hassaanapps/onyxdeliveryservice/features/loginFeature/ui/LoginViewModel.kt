@@ -11,8 +11,8 @@ class LoginViewModel(
     private val checkLoginUseCase: CheckLoginUseCase
 ) : BaseViewModel() {
 
-    private val _successLoginState = mutableStateOf<String?>(null)
-    val successLoginState: State<String?> = _successLoginState
+    private val _successLoginState = MutableStateFlow<String?>(null)
+    val successLoginState: StateFlow<String?> = _successLoginState
 
     private val _error = MutableStateFlow<String?>(null)
     val errorState: StateFlow<String?> = _error
@@ -30,8 +30,8 @@ class LoginViewModel(
         ).dataHandling(
             success = { deliveryName ->
                 deliveryName?.let {
-                    _successLoginState.value = deliveryName
                     resetStates()
+                    _successLoginState.value = deliveryName
                 } ?: run {
                     _error.value = "Empty user data"
                 }
@@ -51,6 +51,8 @@ class LoginViewModel(
 
     private fun resetStates() {
         _error.value = null
+        _successLoginState.value = null
+
     }
 
 }

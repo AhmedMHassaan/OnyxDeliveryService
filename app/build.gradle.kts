@@ -2,6 +2,13 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+//    kotlin("kapt")
+
+//    id(libs.plugins.ksp.get().pluginId) version libs.plugins.ksp.get().version.toString()
+    alias(libs.plugins.ksp)
+//    id(libs.plugins.room.get().pluginId) version libs.plugins.room.get().version.toString()
+//    alias(libs.plugins.ksp) apply false
+
 }
 
 android {
@@ -15,6 +22,14 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += mapOf(
+                    "room.schemaLocation" to "$projectDir/schemas"
+                )
+
+            }
+        }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -41,7 +56,22 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.10.1"
     }
+
+
 }
+
+
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
+
+
+kotlin {
+    sourceSets.all {
+        languageSettings.optIn("androidx.room.RoomSchemaLocation")
+    }
+}
+
 
 dependencies {
 
@@ -56,10 +86,17 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation(libs.converter.json)
+    implementation(libs.loggingInterceptor)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
 
     implementation(libs.androidx.material.icons.extended)
+    implementation(libs.constraintlayout)
+
+
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
     implementation(libs.navigation)
     testImplementation(libs.junit)

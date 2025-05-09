@@ -8,19 +8,12 @@ import com.hassaanapps.onyxdeliveryservice.features.loginFeature.ui.LoginViewMod
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 val loginModule = module {
-    single<Retrofit> {
-        Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("http://mdev.yemensoft.net:8087/OnyxDeliveryService/")
-            .build()
-    }
     single<LoginApi> {
         (get() as Retrofit).create(LoginApi::class.java)
     }
     single<LoginRepository> { LoginRepositoryImpl(get()) }
-    single <CheckLoginUseCase>{ CheckLoginUseCase(repo = get()) }
+    single<CheckLoginUseCase> { CheckLoginUseCase(repo = get()) }
     viewModelOf(::LoginViewModel)
 }

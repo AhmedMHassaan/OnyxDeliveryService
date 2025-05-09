@@ -32,6 +32,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -53,12 +54,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.hassaanapps.onyxdeliveryservice.R
 import com.hassaanapps.onyxdeliveryservice.features.languageScreenFeature.ui.LanguageSelectionScreen
 import com.hassaanapps.onyxdeliveryservice.features.splashScreenFeature.ui.OnyxServiceLogo
-import com.hassaanapps.onyxdeliveryservice.ui.nav.ScreensDestinations
-import com.hassaanapps.onyxdeliveryservice.ui.theme.MontserratFontFamily
+import com.hassaanapps.onyxdeliveryservice.shared.ui.nav.ScreensDestinations
+import com.hassaanapps.onyxdeliveryservice.shared.ui.theme.MontserratFontFamily
 
 
 @Composable
@@ -159,12 +161,27 @@ fun LoginScreen(
     var password by remember { mutableStateOf("") }
     val passwordVisible: MutableState<Boolean> = remember { mutableStateOf(false) }
 
-    val selectedLanguageNo = remember { mutableStateOf("0") }
+    val selectedLanguageNo = remember { mutableStateOf("1") }
     val showLanguageDialog = remember { mutableStateOf(false) }
 
 
     val context: Context = LocalContext.current
 
+    val successState = loginViewModel.successLoginState.collectAsStateWithLifecycle().value
+    LaunchedEffect (successState){
+        successState?.let {
+//            OnLoginSuccess(it)
+        navHostController.navigate(
+            ScreensDestinations.Home.withDeliveryName(
+                it
+            )
+        ) {
+            popUpTo(ScreensDestinations.Login.route) {
+                inclusive = true
+            }
+        }
+    }
+    }
 
     with(loginViewModel) {
 
@@ -175,14 +192,8 @@ fun LoginScreen(
                     .height(100.dp)
             )
         }
-        successLoginState.value?.let {
-            OnLoginSuccess(it)
-            navHostController.navigate(ScreensDestinations.Home.route) {
-                popUpTo(ScreensDestinations.Login.route) {
-                    inclusive = true
-                }
-            }
-        }
+
+
 
         errorState.collectAsState(initial = null).value?.let {
             onErrorHappened(context, it)
@@ -317,17 +328,15 @@ fun LoginScreen(
 }
 
 
-
-
 fun onErrorHappened(context: Context, error: String) {
     Log.d("APP_TAG", " LoginScreen - OnErrorHappened: error is $error")
     Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
 }
 
-@Composable
+/*@Composable
 private fun OnLoginSuccess(deliveryName: String) {
     Toast.makeText(LocalContext.current, "Login Success $deliveryName", Toast.LENGTH_SHORT).show()
-}
+}*/
 
 @Composable
 fun LoginTopHeader(onLanguageIconClicked: () -> Unit = {}) {
