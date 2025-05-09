@@ -3,7 +3,7 @@ package com.hassaanapps.onyxdeliveryservice.shared.ui
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hassaanapps.onyxdeliveryservice.shared.domain.usecase.Resource
+import com.hassaanapps.onyxdeliveryservice.shared.domain.model.Resource
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

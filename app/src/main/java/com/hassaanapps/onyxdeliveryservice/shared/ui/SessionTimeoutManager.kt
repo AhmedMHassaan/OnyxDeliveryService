@@ -4,8 +4,9 @@ import android.os.CountDownTimer
 import android.util.Log
 
 object SessionTimeoutManager {
-    //    private const val TIMEOUT = 2 * 60 * 1000L  // equal 2 min
-    const val MAX_TIMEOUT = 5000L // 5 seconds for test
+    const val MAX_TIMEOUT = 2 * 60 * 1000L  // equal 2 min
+
+    //    const val MAX_TIMEOUT = 5000L // 5 seconds for test
     private var timer: CountDownTimer? = null
     var onSessionExpired: (() -> Unit)? = null
     var currentTime: Long = 0L // init value

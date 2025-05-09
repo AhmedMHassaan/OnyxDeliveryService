@@ -1,4 +1,4 @@
-package com.hassaanapps.onyxdeliveryservice.shared.domain.usecase
+package com.hassaanapps.onyxdeliveryservice.shared.domain.model
 
 sealed class Resource<T> {
     data class Success<T>(val data: T) : Resource<T>()

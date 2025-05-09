@@ -15,8 +15,8 @@ import org.koin.compose.koinInject
 fun NavigationStack(navController: NavHostController) {
     NavHost(
         navController = navController,
-//        startDestination = ScreensDestinations.SplashScreen.route
-        startDestination = ScreensDestinations.Home.withDeliveryName("أحمد محمد حسان")
+        startDestination = ScreensDestinations.SplashScreen.route
+//        startDestination = ScreensDestinations.Home.withDeliveryName("أحمد محمد حسان")
     ) {
 
 

@@ -2,7 +2,7 @@ package com.hassaanapps.onyxdeliveryservice.features.loginFeature.domain.usecase
 
 import com.hassaanapps.onyxdeliveryservice.features.loginFeature.domain.repo.LoginRepository
 import com.hassaanapps.onyxdeliveryservice.shared.domain.BaseFlowUseCase
-import com.hassaanapps.onyxdeliveryservice.shared.domain.usecase.Resource
+import com.hassaanapps.onyxdeliveryservice.shared.domain.model.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

@@ -46,8 +46,8 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun navigate(navController: NavHostController) {
-        navController.navigate(ScreensDestinations.SplashScreen.route) {
-            popUpTo(0)
+        navController.navigate(ScreensDestinations.Login.route) {
+            popUpTo(0) // 0 to remove all items from stack
         }
     }
 
