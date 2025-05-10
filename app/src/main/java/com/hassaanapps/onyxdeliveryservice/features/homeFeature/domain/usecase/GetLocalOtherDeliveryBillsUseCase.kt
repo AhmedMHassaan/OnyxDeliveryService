@@ -15,7 +15,7 @@ class GetLocalOtherDeliveryBillsUseCase(
 
     override fun execute(request: GetBillsRequest): Flow<Resource<List<DeliveryBill>>> =
         flow {
-            val result = repo.getRemoteDeliveryBills(
+            val result = repo.getLocalDeliveryBills(
                 selectType = BillsItemSelectTypes.OTHER,
                 deliveryNo = request.deliveryNo,
                 languageNo = request.languageNo,
