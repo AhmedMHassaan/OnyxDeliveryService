@@ -11,11 +11,11 @@ val localModule = module {
         Room.databaseBuilder(
             get(),
             OnyxServiceDatabase::class.java, "database-name"
-        ).build()
+        ).fallbackToDestructiveMigration(true).build()
     }
 
     single<DeliveryBillsDao> {
         (get() as OnyxServiceDatabase).billsDao()
     }
-    
+
 }

@@ -6,10 +6,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "bills")
 data class DeliveryBillEntity(
     @PrimaryKey(autoGenerate = false)
-    val billNumber: String,
+    val billSerial: String,
+    val billNumber: String?,
     val billAmount: Float?,
     val billDate: String?,
-    val billSerial: String?,
     val billTime: String?,
     val billType: String?,
     val customerAddress: String?,

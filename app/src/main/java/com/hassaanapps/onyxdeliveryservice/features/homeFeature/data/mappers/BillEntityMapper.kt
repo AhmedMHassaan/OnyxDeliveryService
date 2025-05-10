@@ -7,10 +7,10 @@ import com.hassaanapps.onyxdeliveryservice.features.homeFeature.domain.model.Del
 
 fun DeliveryBill.mapToEntity() =
     DeliveryBillEntity(
-        billNumber = this.billNumber ?: "",
+        billNumber = this.billNumber,
         billAmount = this.billAmount,
         billDate = this.billDate,
-        billSerial = this.billSerial,
+        billSerial = this.billSerial ?: System.currentTimeMillis().toString(),
         billTime = this.billTime,
         billType = this.billType,
         customerAddress = this.customerAddress.customerAddress,

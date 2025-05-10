@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.hassaanapps.onyxdeliveryservice.features.homeFeature.data.local.dao.DeliveryBillsDao
 import com.hassaanapps.onyxdeliveryservice.features.homeFeature.data.local.entity.DeliveryBillEntity
 
-@Database(entities = [DeliveryBillEntity::class], version = 1)
+@Database(entities = [DeliveryBillEntity::class], version = 2)
 abstract class OnyxServiceDatabase : RoomDatabase() {
     abstract fun billsDao(): DeliveryBillsDao
 }
